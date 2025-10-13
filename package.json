@@ -1,0 +1,20 @@
+{
+  "name": "adriaan_erasmus",
+  "version": "1.0.0",
+  "main": "server.ts",
+  "author": "Adriaan Erasmus",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.0.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npx ts-node server.ts"
+  }
+}

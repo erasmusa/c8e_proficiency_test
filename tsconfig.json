@@ -1,0 +1,16 @@
+// frontend/tsconfig.json
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs", // Change to CommonJS
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node"
+  },
+  "include": [
+    "server.ts"
+  ]
+}

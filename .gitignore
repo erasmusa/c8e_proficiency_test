@@ -1,0 +1,11 @@
+# Ignore local development artefacts
+.envrc
+
+# Ignore the top-level node_modules directory
+node_modules/
+
+# Ignore the addon's build output directory
+packages/data_manager_addon/build/
+
+# Ignore the data directory and its contents
+data/
