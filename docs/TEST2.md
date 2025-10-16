@@ -1,4 +1,6 @@
-# This task is to test your skills in manipulating arrays and file handling.
+# Test 2
+
+## This task is to test your skills in manipulating arrays and file handling.
 
 This task is to test your skills in manipulating arrays and file handling.
 In this test, you will create a CSV file of variable length. A form will ask for the amount of data to generate. Check the requirements for generating the file.
@@ -16,7 +18,7 @@ The data will look like this:
 ```
 After this, you will import the file into a SQLite database and output a count of all the records imported.
 
-# REQUIREMENTS:
+## REQUIREMENTS:
 
 1. Create two arrays, one for names and one for surnames. There should be 20 names and 20 surnames in each array. Use these
 arrays to generate random names, ages, and birth dates to populate a CSV file. The initials are always the first character of the
@@ -29,14 +31,14 @@ name. Write a function to perform the task of creating the CSV file; you should 
 7. Create a table called "csv_import" with the relevant fields and types to hold the data from the CSV file. Use code to create
 the table.
 
-# PASS:
+## PASS:
 - The file is outputted to the correct folder with the correct name and the correct number of records. (E.g., a 100-record file will
 have 101 lines, including the headers.)
 - The code includes the correct arrays of names and surnames.
 - The file is generated according to the specification of no duplicate rows.
 - All instructions are completed (1-7).
 
-# FAIL:
+## FAIL:
 - The data imported into the database is not correct (check dates).
 - There are duplicate rows in the CSV file.
 - The test file to generate 1,000,000 records fails for any reason.
@@ -44,3 +46,4 @@ have 101 lines, including the headers.)
 
 In case you were wondering, SQLite can handle up to 14 terabytes of row data, so 1,000,000 records should be manageable, and there
 should be enough disk space for 1,000,000 records.
+
