@@ -28,3 +28,19 @@ First you need to install it by running `yarn install` or `npm install`. This wi
 ### Running the app
 
 Then you can run the application by running `yarn dev` or `npm run dev` and then pointing your browser to `http://localhost:3000/`.
+
+### Notes
+
+The application presents two forms to the user each performing a spcific function as specified in the `Code Infinity Proficiency Test` <document_link_here>. The functions of the two forms are as follows:
+
+#### Form A (left)
+
+This form allows the user to generate a CSV file called `output.csv` containing any number of records of randomized data. The shape of this data is described in <document_link_here>.
+
+#### Form B (right)
+
+This form allows the user to upload the CSV file generated on `Form A`. It is then used to create a `SQLite3` database and populate a database table called `csv_import`.
+
+It is important to note that the `output.csv` file that is generated is saved in the project root together with the `SQLIte3` database file - `data.db`. When uploading the file using `Form B`, make sure that you browse to thís location to find the generated file.
+
+Enjoy!
