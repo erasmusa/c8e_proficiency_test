@@ -206,6 +206,8 @@ void import_csv(const char* filename) {
 }
 
 // Main function to parse command-line arguments
+// The `main` entry point is only used when this program is
+// compiled as a command-line utility.
 int main(int argc, char *argv[]) {
     if (argc < 2) {
         fprintf(stderr, "Usage: %s --generate <num_records> OR %s --import <csv_file>\n", argv[0], argv[0]);
