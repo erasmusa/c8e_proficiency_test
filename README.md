@@ -31,11 +31,11 @@ Then you can run the application by running `yarn dev` or `npm run dev` and then
 
 ### Notes
 
-The application presents two forms to the user each performing a spcific function as specified in the `Code Infinity Proficiency Test` <document_link_here>. The functions of the two forms are as follows:
+The application presents two forms to the user each performing a specific function as specified under Test 2 in the [Code Infinity Proficiency Test](docs/TEST2.pdf). The functions of the two forms are as follows:
 
 #### Form A (left)
 
-This form allows the user to generate a CSV file called `output.csv` containing any number of records of randomized data. The shape of this data is described in <document_link_here>.
+This form allows the user to generate a CSV file called `output.csv` containing any number of records of randomized data. The shape of this data is described in [Code Infinity Proficiency Test](docs/TEST2.pdf).
 
 #### Form B (right)
 
