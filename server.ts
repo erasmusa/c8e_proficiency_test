@@ -9,7 +9,8 @@ const dataManagerAddon = require(path.join(
   __dirname,
   'packages/data_manager_addon/build/Release/data_manager_addon.node'
 ));
-const hostname = '0.0.0.0';
+// const hostname = '0.0.0.0';
+const hostname = '127.0.0.1';
 const port = 3000;
 const uploadDir = path.join(__dirname, 'data');
 
