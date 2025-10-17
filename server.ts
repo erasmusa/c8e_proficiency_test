@@ -4,6 +4,7 @@ import * as fsp from 'fs/promises';
 import * as path from 'path';
 const Busboy = require('busboy');
 
+const htmlFile = 'index.html';
 const dataManagerAddon = require(path.join(
   __dirname,
   'packages/data_manager_addon/build/Release/data_manager_addon.node'
@@ -11,6 +12,15 @@ const dataManagerAddon = require(path.join(
 const hostname = '0.0.0.0';
 const port = 3000;
 const uploadDir = path.join(__dirname, 'data');
+
+const MIME_TYPES: { [key: string]: string } = {
+  '.html': 'text/html',
+  '.css': 'text/css',
+  '.js': 'text/javascript',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.gif': 'image/gif',
+};
 
 const server = http.createServer(
   async (req: http.IncomingMessage, res: http.ServerResponse) => {
@@ -20,11 +30,13 @@ const server = http.createServer(
       res.end(JSON.stringify(data));
     };
 
-    const sendHtml = async (filePath: string) => {
+    const sendFile = async (filePath: string) => {
       try {
+        const ext = path.extname(filePath);
+        const contentType = MIME_TYPES[ext] || 'application/octet-stream';
         const data = await fsp.readFile(filePath);
         res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/html');
+        res.setHeader('Content-Type', contentType);
         res.end(data);
       } catch (err) {
         console.error('Error reading file:', err);
@@ -34,9 +46,13 @@ const server = http.createServer(
 
     const url = new URL(req.url || '/', `http://${req.headers.host}`);
 
-    if (req.method === 'GET' && url.pathname === '/') {
-      const htmlPath = path.join(__dirname, 'public', 'index.html');
-      await sendHtml(htmlPath);
+    if (req.method === 'GET') {
+      const filePath = path.join(
+        __dirname,
+        'public',
+        url.pathname === '/' ? htmlFile : url.pathname
+      );
+      await sendFile(filePath);
     } else if (req.method === 'POST' && url.pathname === '/api/create') {
       let body = '';
       req.on('data', (chunk) => (body += chunk.toString()));

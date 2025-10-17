@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Manager</title>
+    <!-- MVP.css is hosted on a CDN and can be included directly -->
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
+    <style>
+      .container {
+        display: flex;
+        gap: 2rem;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      .left,
+      .right {
+        flex: 1;
+        padding: 1rem;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Data Management</h1>
+      <p>Use the form below to create or upload data.</p>
+    </header>
+
+    <main class="container">
+      <section class="left">
+        <h2>Generate Data</h2>
+        <p>
+          Specify the number of records to generate a new CSV file and populate
+          the database.
+        </p>
+        <form id="create-form">
+          <label for="record-count">Number of Records:</label>
+          <input
+            type="number"
+            id="record-count"
+            name="record-count"
+            value="1000000"
+            min="1"
+            required
+          />
+          <button type="submit">Create</button>
+        </form>
+        <div id="create-message"></div>
+      </section>
+
+      <section class="right">
+        <h2>Upload Data</h2>
+        <p>Upload a CSV file to insert its contents into the database.</p>
+        <form id="upload-form" enctype="multipart/form-data">
+          <label for="file-upload">Choose CSV file:</label>
+          <input
+            type="file"
+            id="file-upload"
+            name="csv-file"
+            accept=".csv"
+            required
+          />
+          <button type="submit">Upload and Insert</button>
+        </form>
+        <div id="upload-message"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Data Manager. All rights reserved.</p>
+    </footer>
+
+    <script>
+      document
+        .getElementById('create-form')
+        .addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const recordCount = document.getElementById('record-count').value;
+          const messageEl = document.getElementById('create-message');
+          messageEl.textContent = 'Creating...';
+          try {
+            const response = await fetch('/api/create', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ recordCount }),
+            });
+            const result = await response.json();
+            messageEl.textContent = `Result: ${result.message}`;
+          } catch (error) {
+            messageEl.textContent = `Error: ${error}`;
+          }
+        });
+
+      document
+        .getElementById('upload-form')
+        .addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const form = e.target;
+          const messageEl = document.getElementById('upload-message');
+          messageEl.textContent = 'Uploading...';
+          try {
+            const response = await fetch('/api/upload', {
+              method: 'POST',
+              body: new FormData(form),
+            });
+            const result = await response.json();
+            messageEl.textContent = `Result: ${result.message}`;
+          } catch (error) {
+            messageEl.textContent = 'Error uploading file.';
+          }
+        });
+    </script>
+  </body>
+</html>
