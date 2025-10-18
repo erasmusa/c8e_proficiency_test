@@ -107,7 +107,7 @@
             const result = await response.json();
             messageEl.textContent = `Result: ${result.message}`;
           } catch (error) {
-            messageEl.textContent = 'Error uploading file.';
+            messageEl.textContent = `Error uploading file: ${error}`;
           }
         });
     </script>

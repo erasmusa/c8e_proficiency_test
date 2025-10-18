@@ -9,6 +9,7 @@ packages/data_manager_addon/build/
 
 # Ignore the data directory and its contents
 data/
+temp/
 
 # Ignore created files
 data.db

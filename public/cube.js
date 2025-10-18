@@ -15,7 +15,7 @@ document.body.appendChild(renderer.domElement);
 // 2. Cube Geometry and Material
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 const textureLoader = new THREE.TextureLoader();
-const texture = textureLoader.load('./logo.png'); // Replace with your image path
+const texture = textureLoader.load('./logo.png');
 const material = new THREE.MeshBasicMaterial({ map: texture });
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);

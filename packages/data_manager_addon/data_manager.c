@@ -165,25 +165,39 @@ void import_csv(const char* filename) {
 
     int count = 0;
     while (fgets(line, sizeof(line), fp)) {
-        char *id_str, *name_val, *surname_val, *initials_val, *age_str, *dob_val;
         char *ptr = line;
+        int id, age;
+        char name[100], surname[100], initials[10], dob_val[20];
 
-        // Skip leading quote and tokenize
-        if (*ptr == '"') ptr++;
-        id_str = strtok(ptr, "\",");
-        name_val = strtok(NULL, "\",");
-        surname_val = strtok(NULL, "\",");
-        initials_val = strtok(NULL, "\",");
-        age_str = strtok(NULL, "\",");
-        dob_val = strtok(NULL, "\"\n");
+        sscanf(line, "\"%d\",\"%99[^\"]\",\"%99[^\"]\",\"%9[^\"]\",\"%d\",\"%19[^\"]\"",
+                &id, name, surname, initials, &age, dob_val);
 
-        if (id_str && name_val && surname_val && initials_val && age_str && dob_val) {
-            sqlite3_bind_int(stmt, 1, atoi(id_str));
-            sqlite3_bind_text(stmt, 2, name_val, -1, SQLITE_STATIC);
-            sqlite3_bind_text(stmt, 3, surname_val, -1, SQLITE_STATIC);
-            sqlite3_bind_text(stmt, 4, initials_val, -1, SQLITE_STATIC);
-            sqlite3_bind_int(stmt, 5, atoi(age_str));
-            sqlite3_bind_text(stmt, 6, dob_val, -1, SQLITE_STATIC);
+        int day, month, year;
+        char dob[20], bday[20];
+        dob[0] = '\0';
+
+        if (dob_val && *dob_val) {
+            strcpy(bday, dob_val);
+            sscanf(bday, "%d/%d/%d", &day, &month, &year);
+
+            if (day && month && year) {
+                sprintf(dob, "%04d-%02d-%02d", year, month, day);
+            } else {
+                fprintf(stderr, "Malformed DOB: %s\n", dob_val);
+                strcpy(dob, "NULL");
+            }
+        } else {
+            fprintf(stderr, "Warning: missing DOB in line: %s\n", line);
+            strcpy(dob, "NULL");
+        }
+
+        if (id && name && surname && initials && age && dob) {
+            sqlite3_bind_int(stmt, 1, id);
+            sqlite3_bind_text(stmt, 2, name, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(stmt, 3, surname, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(stmt, 4, initials, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_int(stmt, 5, age);
+            sqlite3_bind_text(stmt, 6, dob, -1, SQLITE_TRANSIENT);
 
             if (sqlite3_step(stmt) != SQLITE_DONE) {
                 fprintf(stderr, "Error inserting row: %s\n", sqlite3_errmsg(db));
