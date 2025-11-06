@@ -2,7 +2,7 @@
 
 ## Manipulating arrays and file handling.
 
-This application is developed using NodeJS and typescript. It also includes a `data_manager` written in C with a C++ wrapper for NodeJS. This was developed on a Debian Linux distribution using a GCC toolchain, it is therefore advised to install an run this on a Debian/Ubuntu Linux distribution.
+This application is developed using NodeJS and typescript. It also includes a `data_manager` written in C with a C++ wrapper for NodeJS. This was developed on a Debian Linux distribution using a GCC toolchain, it is therefore advised to install and run this on a Debian/Ubuntu Linux distribution.
 
 ### Setting up the build environment
 

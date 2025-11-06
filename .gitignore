@@ -14,3 +14,4 @@ temp/
 # Ignore created files
 data.db
 output.csv
+*.backup
